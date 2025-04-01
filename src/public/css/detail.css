@@ -90,3 +90,6 @@ body {
     width: 25px;
     height: 25px;
 }
+.input_error_message {
+    color: red;
+}

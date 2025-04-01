@@ -6,8 +6,10 @@
     <title>商品登録ページ</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/register.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/header.css') }}" />
 </head>
 <body>
+    @include('components.header')
     <main class="main-contents">
         <h1>商品登録</h1>
         <form method="POST" action="/product/upload" enctype="multipart/form-data">
@@ -36,7 +38,7 @@
             @enderror
             <label class="label">季節<span class="require">必須</span><span class="note">複数選択可</span></label>
             @foreach ($seasons as $season)
-                <input type="checkbox" id="season" value="{{$season->id}}" name="product_season">
+                <input type="checkbox" id="season" value="{{$season->id}}" name="product_season[]">
                 <label for="season">{{$season->name}}</label>
             @endforeach
             @error('product_season')
@@ -57,6 +59,8 @@
             </div>
         </form>
     </main>
+    
+    <!-- こちらから下は教材の範囲外のリアルタイム画像表示になります -->
     <script>
         document.getElementById('product_image').onchange = function(event){
 

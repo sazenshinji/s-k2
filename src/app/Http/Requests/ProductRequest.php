@@ -43,7 +43,7 @@ class ProductRequest extends FormRequest
             'product_image.mimes:png,jpeg' => '「.png」または「.jpeg」形式でアップロードしてください',
             'product_season.required' => '季節を選択してください',
             'product_description.required' => '商品説明を入力してください',
-            'product_description.max:120' => '120文字以内で入力してください',
+            'product_description.max' => '120文字以内で入力してください'
         ];
     }
 }

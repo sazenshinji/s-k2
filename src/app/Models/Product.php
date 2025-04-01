@@ -20,8 +20,8 @@ class Product extends Model
         $product_id = $product->id;
 
         $product_data = Product::find($product_id);
-        $productSeasons = $product_data->seasons; 
-        
+        $productSeasons = $product_data->seasons;
+
         foreach ($productSeasons as $productSeason) 
         {
             if($productSeason->id == $season_id)

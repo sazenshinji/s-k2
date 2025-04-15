@@ -13,12 +13,12 @@
 <body>
     @include('components.header')
     <div class="all-contents">
-        <form action="/products/update" method="POST">
+        <form action="/products/update" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="top-contents">
                 <div class="left-content">
                     <p><span class="span-item">商品一覧></span>{{$product->name}}</p>
-                    <img src="{{ asset($product->image) }}" alt="商品画像" class="img-content" />
+                    <output id="list" class="img-content"></output>
                 </div>
                 <div class="right-content">
                     <label class="name-label">商品名</label>
@@ -57,9 +57,9 @@
                 <label class="description-label">商品説明</label>
                 <textarea cols="30" rows="5" name="product_description" class="product-description">{{$product->description}}</textarea>
                 @error('product_description')
-                    <span class="input_error">
-                        <p class="input_error_message">{{$errors->first('product_description')}}</p>
-                    </span>
+                <span class="input_error">
+                    <p class="input_error_message">{{$errors->first('product_description')}}</p>
+                </span>
                 @enderror
                 <div class="button-content">
                     <a href="/products" class="back">戻る</a>
@@ -71,8 +71,34 @@
                     </div>
                 </div>
             </div>
+            <input type="hidden" name="product_id" class="product_id" id="product_id" value="{{$product->id}}">
         </form>
     </div>
-</body>
+    <script>
+        document.getElementById('product_image').onchange = function(event) {
 
+            initializeFiles();
+
+            var files = event.target.files;
+
+            for (var i = 0, f; f = files[i]; i++) {
+                var reader = new FileReader;
+                reader.readAsDataURL(f);
+
+                reader.onload = (function(theFile) {
+                    return function(e) {
+                        var div = document.createElement('div');
+                        div.className = 'reader_file';
+                        div.innerHTML += '<img class="reader_image" src="' + e.target.result + '" />';
+                        document.getElementById('list').insertBefore(div, null);
+                    }
+                })(f);
+            }
+        };
+
+        function initializeFiles() {
+            document.getElementById('list').innerHTML = '';
+        }
+    </script>
+</body>
 </html>

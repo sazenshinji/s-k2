@@ -204,7 +204,7 @@ class ProductController extends Controller
         $file_name = $request->file('product_image')->getClientOriginalName();
         $request->file('product_image')->storeAs('public/' . $dir, $file_name);
 
-        $product_data = new Product();
+        $product_data = Product::find( $_POST["product_id"]);
         $product_data->name= $_POST["product_name"];
         $product_data->price= $_POST["product_price"];
         $product_data->image= 'storage/' . $dir . '/' . $file_name;
